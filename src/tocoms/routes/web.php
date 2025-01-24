@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserHobbyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     Route::get('/users.index', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('/search/region', [SearchController::class, 'indexbyregion'])->name('indexbyregion');
+    Route::get('/search/hobby', [SearchController::class, 'indexbyhobby'])->name('indexbyhobby');
     
     Route::post('/profile.hobby', [UserHobbyController::class, 'update'])->name('hobby.update');
 

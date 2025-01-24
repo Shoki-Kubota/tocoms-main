@@ -3,12 +3,13 @@ import { Head, usePage, } from '@inertiajs/react';
 import { useRef, useState, useEffect } from 'react';
 import NavLink from '@/Components/NavLink';
 import UserCard from '@/Components/UserCard';
+import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function SearchUsers({ others }) {
+export default function SearchUsers({ hobbies }) {
     const user = usePage().props.auth.user;
 
     useEffect(() => {
-            console.log(others);
+            console.log(hobbies);
         }, []);
 
     return (
@@ -37,12 +38,19 @@ export default function SearchUsers({ others }) {
             >
                 <Head title="Dashboard" />
 
-                <div className="py-12">
-                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {others.map((other) => (
-                        <UserCard other={other} />
+                <div className="flex items-center justify-center mt-4">           
+                    <select
+                        className="w-72 mr-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        required
+                    >
+                    <option value="">趣味を選択してください</option>
+                    {hobbies.map((hobby) => (
+                        <option key={hobby.id} value={hobby.id}>
+                        {hobby.name}
+                        </option>
                     ))}
-                    </div>
+                    </select>
+                    <PrimaryButton>検索</PrimaryButton>
                 </div>
             </AuthenticatedLayout>
         </div>
