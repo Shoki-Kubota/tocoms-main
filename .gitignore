@@ -1,1 +1,4 @@
 docker/db
+docker/db/data/ib_logfile0
+docker/db/data/ibdata1
+docker/db/data/ib_buffer_pool
