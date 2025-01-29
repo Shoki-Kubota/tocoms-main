@@ -6,3 +6,4 @@ docker/db/data/tocoms_db/sessions.ibd
 docker/db/data/tocoms_db/cache.ibd
 docker/db/data/mysql/innodb_index_stats.ibd
 docker/db/data/mysql/innodb_table_stats.ibd
+docker/db/data/ib_buffer_pool

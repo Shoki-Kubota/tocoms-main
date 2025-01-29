@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users.index', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/search/region', [SearchController::class, 'indexbyregion'])->name('indexbyregion');
+    Route::post('/search/region', [SearchController::class, 'searchbyregion'])->name('searchbyregion');
     Route::get('/search/hobby', [SearchController::class, 'indexbyhobby'])->name('indexbyhobby');
     
     Route::post('/profile.hobby', [UserHobbyController::class, 'update'])->name('hobby.update');

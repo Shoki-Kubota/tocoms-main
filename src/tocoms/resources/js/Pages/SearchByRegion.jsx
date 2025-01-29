@@ -1,16 +1,43 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage, } from '@inertiajs/react';
+import { Head, usePage, useForm } from '@inertiajs/react';
 import { useRef, useState, useEffect } from 'react';
 import NavLink from '@/Components/NavLink';
 import UserCard from '@/Components/UserCard';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function SearchUsers({ regions }) {
+export default function SearchUsers({ regions, searchedUsers }) {
     const user = usePage().props.auth.user;
 
+    const [selectedRegionId, setSelectedRegionId] = useState('');
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        region: '',
+    });
+
     useEffect(() => {
-            console.log(regions);
-        }, []);
+        setData('region', selectedRegionId);
+    }, [selectedRegionId]);
+
+    useEffect(() => {
+        console.log(data.region);
+      }, [selectedRegionId]);
+    useEffect(() => {
+        console.log(selectedRegionId);
+      }, [selectedRegionId]);
+
+    const handleRegionChange = (e) => {
+        e.preventDefault();
+        setSelectedRegionId(e.target.value);
+      };
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        post(route('searchbyregion'), { 
+            region: data.region,
+            onFinish: () => reset(),
+        });
+    };
 
     return (
         <div>
@@ -42,6 +69,7 @@ export default function SearchUsers({ regions }) {
                     <select
                         className="w-72 mr-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         required
+                        onChange={handleRegionChange}
                     >
                     <option value="">地域を選択してください</option>
                     {regions.map((region) => (
@@ -50,8 +78,21 @@ export default function SearchUsers({ regions }) {
                         </option>
                     ))}
                     </select>
-                    <PrimaryButton>検索</PrimaryButton>
+                    <PrimaryButton onClick={handleSearch}>検索</PrimaryButton>
                 </div>
+                <div className="py-12">
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    {searchedUsers?.length > 0 && (
+                        searchedUsers.map((searchedUser) => (
+                        <UserCard other={searchedUser} key={searchedUser.id} />
+                        ))
+                    )}
+                    {searchedUsers?.length === 0 && (
+                    <p>該当するユーザーが見つかりませんでした。</p>
+                    )}
+                    </div>
+                </div>
+                
             </AuthenticatedLayout>
         </div>
     );

@@ -16,6 +16,18 @@ class SearchController extends Controller
         return Inertia::render('SearchByRegion', ['regions' => $regions]);
     }
 
+    public function searchbyregion(Request $request)
+    {
+        $regions = Region::all();
+        $regionId = $request->region;
+        $searchedUsers = User::where('region_id', $regionId)->get();
+
+        return Inertia::render('SearchByRegion', [
+            'searchedUsers' => $searchedUsers,
+            'regions' => $regions
+        ]);
+    }
+
     public function indexbyhobby()
     {
         $hobbies = Hobby::all();
