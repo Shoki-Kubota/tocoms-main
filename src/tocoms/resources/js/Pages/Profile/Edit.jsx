@@ -4,8 +4,15 @@ import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import SelectHobby from './Partials/SelectHobby';
+import SelectRegion from './Partials/SelectRegion';
 
-export default function Edit({ mustVerifyEmail, status, hobbies, initialSelectedHobbies }) {
+export default function Edit({ mustVerifyEmail, 
+    status, 
+    regions, 
+    initialSelectedRegion, 
+    hobbies, 
+    initialSelectedHobbies 
+}) {
     const user = usePage().props.auth.user;
 
     return (
@@ -25,6 +32,14 @@ export default function Edit({ mustVerifyEmail, status, hobbies, initialSelected
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
                             className="max-w-xl"
+                        />
+                    </div>
+
+                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                        <SelectRegion 
+                            className="max-w-xl" 
+                            regions={regions}
+                            initialSelectedRegion={initialSelectedRegion}
                         />
                     </div>
 
