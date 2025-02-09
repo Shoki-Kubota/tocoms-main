@@ -19,11 +19,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'getposts'])->name('dashboard');
+
     Route::get('/posts.create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts.create', [PostController::class, 'store']);
     Route::get('/posts.index', [PostController::class, 'index'])->name('posts.index');

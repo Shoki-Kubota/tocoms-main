@@ -43,4 +43,22 @@ class UserController extends Controller
 
         return Redirect::route('users.index');
     }
+
+    public function getposts()
+    {
+        $user = auth()->user();
+
+        // フォローしているユーザーのIDを取得
+        $followingIds = $user->following->pluck('id');
+
+        // フォローしているユーザーの投稿を取得
+        $followingPosts = Post::whereIn('user_id', $followingIds)
+            ->with('user') // 投稿者情報も一緒に取得
+            ->orderBy('created_at', 'desc') // 新しい順に並び替え
+            ->get();
+
+        return Inertia::render('Dashboard', [
+            'followingPosts' => $followingPosts,
+        ]);
+    }
 }
