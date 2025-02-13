@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     Route::get('/users.index', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users.following', [UserController::class, 'followingindex'])
+    ->name('users.followingindex');
+    Route::get('/users.follower', [UserController::class, 'followerindex'])
+    ->name('users.followerindex');
 
     Route::get('/search/region', [SearchController::class, 'indexbyregion'])->name('indexbyregion');
     Route::post('/search/region', [SearchController::class, 'searchbyregion'])->name('searchbyregion');

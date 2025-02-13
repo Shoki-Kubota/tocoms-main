@@ -32,6 +32,9 @@ class SearchController extends Controller
 
             $otherUser->isFollowing = in_array($otherUser->id, $following);
             $otherUser->isFollowed = in_array($otherUser->id, $followers);
+            $otherUser->postsCount = $otherUser->posts->count();
+            $otherUser->followingsCount = $otherUser->following->count();
+            $otherUser->followersCount = $otherUser->followers->count();
         });
 
         return Inertia::render('SearchByRegion', [
@@ -63,6 +66,9 @@ class SearchController extends Controller
 
             $otherUser->isFollowing = in_array($otherUser->id, $following);
             $otherUser->isFollowed = in_array($otherUser->id, $followers);
+            $otherUser->postsCount = $otherUser->posts->count();
+            $otherUser->followingsCount = $otherUser->following->count();
+            $otherUser->followersCount = $otherUser->followers->count();
         });
 
         return Inertia::render('SearchByHobby', [

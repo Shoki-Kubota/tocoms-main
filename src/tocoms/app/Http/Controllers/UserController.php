@@ -22,8 +22,45 @@ class UserController extends Controller
 
             $otherUser->isFollowing = in_array($otherUser->id, $following);
             $otherUser->isFollowed = in_array($otherUser->id, $followers);
+            $otherUser->postsCount = $otherUser->posts->count();
+            $otherUser->followingsCount = $otherUser->following->count();
+            $otherUser->followersCount = $otherUser->followers->count();
         });
         return Inertia::render('SearchUsers', ['others' => $others]);
+    }
+
+    public function followingindex()
+    {
+        $user = Auth::user();
+        $ufollowings = $user->following()->get();
+        $ufollowings->each(function ($ufollowing) use ($user) {
+            $followers = $user->followers->pluck('id')->toArray();
+            $following = $user->following->pluck('id')->toArray();
+
+            $ufollowing->isFollowing = in_array($ufollowing->id, $following);
+            $ufollowing->isFollowed = in_array($ufollowing->id, $followers);
+            $ufollowing->postsCount = $ufollowing->posts->count();
+            $ufollowing->followingsCount = $ufollowing->following->count();
+            $ufollowing->followersCount = $ufollowing->followers->count();
+        });
+        return Inertia::render('FollowingList', ['ufollowings' => $ufollowings]);
+    }
+
+    public function followerindex()
+    {
+        $user = Auth::user();
+        $ufollowers = $user->followers()->get();
+        $ufollowers->each(function ($ufollower) use ($user) {
+            $followers = $user->followers->pluck('id')->toArray();
+            $following = $user->following->pluck('id')->toArray();
+
+            $ufollower->isFollowing = in_array($ufollower->id, $following);
+            $ufollower->isFollowed = in_array($ufollower->id, $followers);
+            $ufollower->postsCount = $ufollower->posts->count();
+            $ufollower->followingsCount = $ufollower->following->count();
+            $ufollower->followersCount = $ufollower->followers->count();
+        });
+        return Inertia::render('FollowerList', ['ufollowers' => $ufollowers]);
     }
 
     public function follow(Request $request): RedirectResponse
@@ -32,7 +69,7 @@ class UserController extends Controller
         $otherIdToFollow = $request->id;
         $user->following()->attach($otherIdToFollow);
 
-        return Redirect::route('users.index');
+        return Redirect::route('dashboard');
     }
 
     public function unfollow(Request $request): RedirectResponse
@@ -41,7 +78,7 @@ class UserController extends Controller
         $otherIdToUnFollow = $request->id;
         $user->following()->detach($otherIdToUnFollow);
 
-        return Redirect::route('users.index');
+        return Redirect::route('dashboard');
     }
 
     public function getposts()

@@ -21,7 +21,7 @@ export default function UserCard({ other }) {
         reset();
       };
 
-      const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         post(other.isFollowing ? route('users.unfollow') : route('users.follow'), {
             onSuccess: () => {
@@ -34,17 +34,33 @@ export default function UserCard({ other }) {
     return (
         <>
             <div key={other.id} className="mt-4 mx-10 flex flex-col bg-white border shadow-sm rounded-xl p-4 dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                <div className="flex flex-col mr-10">
-                    <p className="text-black">{other.name}</p>
-                    <p className="text-slate-500 text-xs">{other.account_name}</p>
+                <div className="flex">
+                    <div className="flex flex-col mr-10">
+                        <p className="text-black">{other.name}</p>
+                        <p className="text-slate-500 text-xs">＠{other.account_name}</p>
+                    </div>
+                    <FollowButton 
+                    className="flex ml-auto w-24" 
+                    isFollowingIni={other.isFollowing} 
+                    onClick={() => confirmFollow()}
+                    >
+                        {other.isFollowing ? 'フォロー解除' : 'フォローする'}
+                    </FollowButton>
                 </div>
-                <FollowButton 
-                className="flex ml-auto w-24" 
-                isFollowingIni={other.isFollowing} 
-                onClick={() => confirmFollow()}
-                >
-                    {other.isFollowing ? 'フォロー解除' : 'フォローする'}
-                </FollowButton>
+                <div className="flex mt-8 text-xs">
+                    <div className="flex">
+                        <p>{other.postsCount}</p>
+                        <p className="text-slate-700 ml-1">投稿</p>
+                    </div>
+                    <div className="flex ml-4">
+                        <p>{other.followingsCount}</p>
+                        <p className="text-slate-700 ml-1">フォロー中</p>
+                    </div>
+                    <div className="flex ml-4">
+                        <p>{other.followersCount}</p>
+                        <p className="text-slate-700 ml-1">フォロワー</p>
+                    </div>
+                </div>
             </div>
 
             <Modal show={confirmingFollowUpdate} onClose={closeFollowModal}>
