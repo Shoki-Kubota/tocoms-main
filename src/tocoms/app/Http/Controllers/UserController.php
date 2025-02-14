@@ -29,6 +29,16 @@ class UserController extends Controller
         return Inertia::render('SearchUsers', ['others' => $others]);
     }
 
+    public function update(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $user->name = $request->name;
+        $user->account_name = $request->account_name;
+        $user->save();
+
+        return Redirect::route('profile.edit');
+    }
+
     public function followingindex()
     {
         $user = Auth::user();

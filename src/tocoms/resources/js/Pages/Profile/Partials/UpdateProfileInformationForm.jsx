@@ -20,7 +20,7 @@ export default function UpdateProfileInformation({
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('profile.update'));
+        post(route('users.update'));
     };
 
     return (

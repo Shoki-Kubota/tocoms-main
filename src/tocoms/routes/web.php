@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     ->name('users.followingindex');
     Route::get('/users.follower', [UserController::class, 'followerindex'])
     ->name('users.followerindex');
+    Route::post('/users.update', [UserController::class, 'update'])->name('users.update');
 
     Route::get('/search/region', [SearchController::class, 'indexbyregion'])->name('indexbyregion');
     Route::post('/search/region', [SearchController::class, 'searchbyregion'])->name('searchbyregion');
@@ -49,8 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/users.unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile', [ProfileController::class, 'regionupdate'])->name('region.update');
+    Route::post('/profile/region', [ProfileController::class, 'regionupdate'])->name('region.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
