@@ -87,11 +87,17 @@ export default function MyPosts({ posts }) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {posts.map((post) => (
+                {posts?.length > 0 && (
+                    posts.map((post) => (
                     <div>
                         <div key={post.id} className="mt-4 mx-10 flex flex-col bg-white border shadow-sm rounded-xl p-4 dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                            <p>{post.text}</p>
-                            <div className="flex ml-auto">
+                            <div className="flex">
+                                <p className="flex">{post.text}</p>
+                                <div className="flex ml-auto text-sm text-gray-500 dark:text-gray-400">
+                                    {formatDate(post.created_at)} {/* formatDate関数を呼び出す */}
+                                </div>
+                            </div>
+                            <div className="flex ml-auto mt-8">
                                 <FaEdit 
                                 color={'blue'}
                                 onClick={() => confirmPostUpdate(post.id, post.text)}
@@ -176,10 +182,24 @@ export default function MyPosts({ posts }) {
                             </form>
                         </Modal>
                     </div>
-                    ))}
-
+                    ))
+                )}
+                {posts?.length === 0 && (
+                <p>投稿がありません。</p>
+                )}
                 </div>
             </div>
         </AuthenticatedLayout>
     );
+}
+
+function formatDate(dateString) {
+    if (!dateString) return ""; // dateString が null または undefined の場合の処理
+
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ja-JP', { // 日本語ロケールで月日を表示
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+    });
 }

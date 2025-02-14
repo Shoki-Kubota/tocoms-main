@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $posts = $user->posts;
+        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
         return Inertia::render('MyPosts', ['posts' => $posts]);
     }
 

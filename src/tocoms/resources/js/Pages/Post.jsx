@@ -43,7 +43,7 @@ export default function Post() {
                         onChange={(e) => setData('text', e.target.value)}
                         required
                     />
-                        <PrimaryButton className="ms-4" disabled={processing}>
+                        <PrimaryButton className="ml-auto mt-2" disabled={processing}>
                             投稿する
                         </PrimaryButton>
                     </div>

@@ -20,9 +20,14 @@ export default function FollowingList({ ufollowings }) {
 
                 <div className="py-12">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {ufollowings.map((following) => (
-                        <UserCard other={following} />
-                    ))}
+                    {ufollowings?.length > 0 && (
+                        ufollowings.map((ufollowing) => (
+                        <UserCard other={ufollowing} key={ufollowing.id} />
+                        ))
+                    )}
+                    {ufollowings?.length === 0 && (
+                    <p>フォロー中のユーザーが見つかりませんでした。</p>
+                    )}
                     </div>
                 </div>
             </AuthenticatedLayout>

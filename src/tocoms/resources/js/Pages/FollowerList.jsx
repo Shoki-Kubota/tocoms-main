@@ -21,9 +21,14 @@ export default function FollowerList({ ufollowers }) {
 
                 <div className="py-12">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {ufollowers.map((follower) => (
-                        <UserCard other={follower} />
-                    ))}
+                    {ufollowers?.length > 0 && (
+                        ufollowers.map((ufollower) => (
+                        <UserCard other={ufollower} key={ufollower.id} />
+                        ))
+                    )}
+                    {ufollowers?.length === 0 && (
+                    <p>フォロワーが見つかりませんでした。</p>
+                    )}
                     </div>
                 </div>
             </AuthenticatedLayout>

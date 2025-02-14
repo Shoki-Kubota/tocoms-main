@@ -49,7 +49,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('users.index')}
+                                    href={route('indexbyregion')}
                                     active={route().current('users.index') || route().current('indexbyhobby') || route().current('indexbyregion')}
                                 >
                                     ユーザーを探す
